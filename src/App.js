@@ -21,9 +21,6 @@ const App = inject("generalStore")(
     const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
     props.generalStore.getData()
 
-    useEffect(() => {
-      
-    })
 
     return (
       <StylesProvider jss={jss}>
