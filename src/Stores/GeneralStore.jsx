@@ -1,6 +1,8 @@
 import { observable, action } from "mobx";
 import axios from "axios";
-const userRoute = "http://localhost:4200";
+// const userRoute = "http://localhost:4200";
+const userRoute = "";
+
 export default class GeneralStore {
     @observable lightMode = localStorage.theme === "light" ? false : true;
     @observable amountLeft = 5000;
