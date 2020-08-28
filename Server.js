@@ -20,18 +20,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-// //////////////////////////////////////////////////////////////////////////
-// app.use(express.static(path.join(__dirname, 'build')));
-// //////////////////////////////////////////////////////////////////////////
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/', api);
 
 
-// //////////////////////////////////////////////////////////////////////////
-// app.get('*', function (req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-// //////////////////////////////////////////////////////////////////////////
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const port = 4200;
 app.listen(process.env.PORT || port, function () {
