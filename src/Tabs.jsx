@@ -9,11 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import Table from "./Table"
 import { Box } from '@material-ui/core';
 import { observer, inject } from 'mobx-react';
+import moment from 'moment';
 
 
 function TabContainer({ children, dir }) {
     return (
-        <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+        <Typography component="div" dir={dir} style={{ padding: 0 }}>
             {children}
         </Typography>
     );
@@ -66,12 +67,12 @@ class FullWidthTabs extends React.Component {
                 >
                     <TabContainer dir={theme.direction}>
                         <Box mt={3}>
-                            <Table rows={this.props.generalStore.fixedCosts} />
+                            <Table rows={this.props.generalStore.transactions.filter(t => t.costType === 'a').sort((a, b) => moment(b.date).diff(moment(a.date).format()))} />
                         </Box>
                     </TabContainer>
                     <TabContainer dir={theme.direction}>
                         <Box mt={3}>
-                            <Table rows={this.props.generalStore.variableCosts} />
+                            <Table rows={this.props.generalStore.transactions.filter(t => t.costType === 'b').sort((a, b) => moment(b.date).diff(moment(a.date).format()))} />
                         </Box>
                     </TabContainer>
                     <TabContainer dir={theme.direction}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Container, Box, Switch } from '@material-ui/core';
 import Tabs from "./Tabs"
 import AddButton from "./Components/AddButton"
@@ -10,6 +10,7 @@ import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline"
+import PieChart from "./Components/Charts/PieChart"
 
 const App = inject("generalStore")(
   observer((props) => {
@@ -18,7 +19,11 @@ const App = inject("generalStore")(
       props.generalStore.toggleLightMode(event.target.checked)
     }
     const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+    props.generalStore.getData()
 
+    useEffect(() => {
+      
+    })
 
     return (
       <StylesProvider jss={jss}>
@@ -26,14 +31,15 @@ const App = inject("generalStore")(
           <CssBaseline />
           <Container maxWidth="sm">
             <Box mt={3}>
-              <Typography variant="h3" gutterBottom>
-                אביב
+              <Typography align="right" variant="h3" gutterBottom>
+                ExpensesApp
       </Typography>
             </Box>
             <Tabs />
             <AddButton className="buttonStatic" />
             <Switch onChange={handleChange}
               checked={props.generalStore.lightMode} />
+            <PieChart />
           </Container>
         </ThemeProvider>
       </StylesProvider>

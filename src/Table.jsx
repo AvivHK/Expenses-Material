@@ -13,19 +13,21 @@ const SimpleTable = inject("generalStore")(
     observer((props) => {
 
         return (
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
+            <TableContainer padding="none" component={Paper}>
+                <Table mp={0}  aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="right">פירוט</TableCell>
-                            <TableCell align="right">סכום</TableCell>
+                            <TableCell  >מבצע</TableCell>
+                            <TableCell >פירוט</TableCell>
+                            <TableCell >סכום</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.rows.map((row) => (
                             <TableRow key={row.name}>
-                                <TableCell align="right" component="th" scope="row"> {row.name} </TableCell>
-                                <TableCell align="right">{row.price}</TableCell>
+                                <TableCell >{row.name === "aviv" ? "אביב" : row.name === "chen" ? "חן" : "אביב וחן"}</TableCell>
+                                <TableCell  component="th" scope="row"> {row.description} </TableCell>
+                                <TableCell >{row.price}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
