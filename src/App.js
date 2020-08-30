@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Typography, Container, Box, Switch } from '@material-ui/core';
 import Tabs from "./Tabs"
 import AddButton from "./Components/AddButton"

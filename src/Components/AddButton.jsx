@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { TextField, Select, InputLabel, Input, FormControl, InputAdornment, FormControlLabel, RadioGroup, Radio, Box, Button, Dialog, ButtonGroup, Grow, Paper, Popper, MenuItem, MenuList, ClickAwayListener, ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, Typography, Container } from '@material-ui/core';
+import { TextField, Select, InputLabel, Input, FormControl, InputAdornment, FormControlLabel, RadioGroup, Radio, Box, Button, Dialog, ButtonGroup, Grow, Paper, Popper, MenuItem, MenuList, ClickAwayListener, ListItem, List, Divider, AppBar, Toolbar, IconButton, Typography, Container } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
@@ -186,14 +186,14 @@ const SplitButton = inject("generalStore")(
                                     <Grid item xs={6.5}>
                                         <FormControlLabel
                                             control={<Radio checked={selectedCostsType === 'a'}
-                                                value="a" onChange={handleChangeCostsType} color="primary" />} label="Top"
+                                                value="a" onChange={handleChangeCostsType} color="primary" />}
                                             labelPlacement="end"
                                             label="הוצאות קבועות" />
                                     </Grid>
                                     <Grid item xs={6.5}>
                                         <FormControlLabel
                                             control={<Radio checked={selectedCostsType === 'b'}
-                                                value="b" onChange={handleChangeCostsType} color="primary" />} label="Top"
+                                                value="b" onChange={handleChangeCostsType} color="primary" />} 
                                             label="הוצאות משתנות"
                                             labelPlacement="end"
                                         />
@@ -213,14 +213,14 @@ const SplitButton = inject("generalStore")(
                                     <Grid item xs={3}>
                                         <FormControlLabel
                                             control={<Radio checked={selectedValueRadio === 'aviv'}
-                                                value="aviv" onChange={handleChangeRadio} color="primary" />} label="Top"
+                                                value="aviv" onChange={handleChangeRadio} color="primary" />}
                                             labelPlacement="end"
                                             label="אביב" />
                                     </Grid>
                                     <Grid item xs={3}>
                                         <FormControlLabel
                                             control={<Radio checked={selectedValueRadio === 'chen'}
-                                                value="chen" onChange={handleChangeRadio} color="primary" />} label="Top"
+                                                value="chen" onChange={handleChangeRadio} color="primary" />}
                                             label="חן"
                                             labelPlacement="end"
                                         />
