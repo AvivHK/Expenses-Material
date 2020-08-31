@@ -11,6 +11,7 @@ import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline"
 import PieChart from "./Components/Charts/PieChart"
+import HttpsRedirect from 'react-https-redirect';
 
 const App = inject("generalStore")(
   observer((props) => {
@@ -25,19 +26,21 @@ const App = inject("generalStore")(
     return (
       <StylesProvider jss={jss}>
         <ThemeProvider theme={props.generalStore.lightMode ? darkTheme : lightTheme}>
-          <CssBaseline />
-          <Container maxWidth="sm">
-            <Box mt={3}>
-              <Typography align="right" variant="h3" gutterBottom>
-                ExpensesApp
+          <HttpsRedirect>
+            <CssBaseline />
+            <Container maxWidth="sm">
+              <Box mt={3}>
+                <Typography align="right" variant="h3" gutterBottom>
+                  ExpensesApp
       </Typography>
-            </Box>
-            <Tabs />
-            <AddButton className="buttonStatic" />
-            <Switch onChange={handleChange}
-              checked={props.generalStore.lightMode} />
-            <PieChart />
-          </Container>
+              </Box>
+              <Tabs />
+              <AddButton className="buttonStatic" />
+              <Switch onChange={handleChange}
+                checked={props.generalStore.lightMode} />
+              <PieChart />
+            </Container>
+          </HttpsRedirect>
         </ThemeProvider>
       </StylesProvider>
     );
