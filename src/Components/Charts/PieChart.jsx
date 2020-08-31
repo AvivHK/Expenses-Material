@@ -29,15 +29,14 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
-@observer
 @inject("generalStore")
+@observer
 class Demo extends React.PureComponent {
 
 
     render() {
         const chartData = this.props.generalStore.dataToChart;
         console.log(this.props.generalStore.dataToChart)
-
         return (
             <Paper>
                 <Chart
@@ -48,17 +47,17 @@ class Demo extends React.PureComponent {
                         name="אביב"
                         valueField="aviv"
                         argumentField="costType"
-                        color="#ffd700" />
+                    />
                     <BarSeries
                         name="חן"
                         valueField="chen"
                         argumentField="costType"
-                        color="#c0c0c0" />
+                    />
                     <BarSeries
                         name="חן ואביב"
                         valueField="avivChen"
                         argumentField="costType"
-                        color="#cd7f32" />
+                    />
                     <Animation />
                     <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
                     <Title text="" />

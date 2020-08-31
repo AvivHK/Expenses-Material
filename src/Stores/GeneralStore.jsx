@@ -1,7 +1,7 @@
 import { observable, action } from "mobx";
 import axios from "axios";
-// const userRoute = "http://localhost:4200";
-const userRoute = "";
+const userRoute = "http://localhost:4200";
+// const userRoute = "";
 
 export default class GeneralStore {
     @observable lightMode = localStorage.theme === "light" ? false : true;
@@ -12,13 +12,13 @@ export default class GeneralStore {
     @action calcDataToChart = () => {
         let data = [
             {
-                costType: "a",
+                costType: "תועובק תואצוה",
                 aviv: 0,
                 chen: 0,
                 avivChen: 0,
             },
             {
-                costType: "b",
+                costType: "תונתשמ תואצוה",
                 aviv: 0,
                 chen: 0,
                 avivChen: 0,
@@ -47,7 +47,6 @@ export default class GeneralStore {
                     data[1].avivChen += t.price
                 }
             }
-            console.log(data)
         }
         this.dataToChart = data
         console.log(this.dataToChart)

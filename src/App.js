@@ -35,10 +35,12 @@ const App = inject("generalStore")(
       </Typography>
               </Box>
               <Tabs />
-              <AddButton className="buttonStatic" />
+              <Box mb={1} mt={1}>
+                <AddButton className="buttonStatic" />
+              </Box>
+              <PieChart />
               <Switch onChange={handleChange}
                 checked={props.generalStore.lightMode} />
-              <PieChart />
             </Container>
           </HttpsRedirect>
         </ThemeProvider>
