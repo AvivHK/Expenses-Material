@@ -13,12 +13,18 @@
       "sizes": "192x192"
     },
     {
+      "src": "logo196.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "/?source=pwa",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#12233d",
   "background_color": "#12233d",
