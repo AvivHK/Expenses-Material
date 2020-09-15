@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { TextField, Select, InputLabel, Input, FormControl, InputAdornment, FormControlLabel, RadioGroup, Radio, Box, Button, Dialog, ButtonGroup, Grow, Paper, Popper, MenuItem, MenuList, ClickAwayListener, ListItem, List, Divider, AppBar, Toolbar, IconButton, Typography, Container } from '@material-ui/core';
+import { DialogActions, DialogContentText, DialogContent, DialogTitle, TextField, Select, InputLabel, Input, FormControl, InputAdornment, FormControlLabel, RadioGroup, Radio, Box, Button, Dialog, ButtonGroup, Grow, Paper, Popper, MenuItem, MenuList, ClickAwayListener, ListItem, List, Divider, AppBar, Toolbar, IconButton, Typography, Container } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
@@ -51,6 +51,7 @@ const SplitButton = inject("generalStore")(
         const [selectedDescription, setSelectedDescription] = React.useState('');
         const [selectedPrice, setSelectedPrice] = React.useState(0);
         const [selectedCategory, setSelectedCategory] = React.useState("");
+        const [selectOpenResetMonth, setSelectedResetMonth] = React.useState(false);
         const [selectedDate, setSelectedDate] = React.useState(moment().format("YYYY-MM-DDTHH:mm"));
 
 
@@ -78,15 +79,24 @@ const SplitButton = inject("generalStore")(
         };
 
         const handleClick = () => {
+            console.log(selectedIndex)
             if (selectedIndex === 1) {
                 handleClickOpenDialog()
             }
-            else if (selectedIndex === 0) {
-                return <Dialog />
-
+            else if (selectedIndex === 2) {
+                handleClickOpenMonthReset()
             }
-
+            else if (selectedIndex === 0) {
+                handleClickOpenMonthReset()
+            }
         };
+        const handleClickOpenMonthReset = () => {
+            setSelectedResetMonth(true)
+        }
+
+        const handleClickCloseMonthReset = () => {
+            setSelectedResetMonth(false)
+        }
 
         const handleMenuItemClick = (event, index) => {
             setSelectedIndex(index);
@@ -148,161 +158,185 @@ const SplitButton = inject("generalStore")(
                         </Grow>
                     )}
                 </Popper>
-            <Dialog fullScreen open={openDialog} >
-                <Box mt={0}>
-                    <AppBar dir="rtl" position="static">
-                        <Toolbar>
-                            <Grid item xs onClick={handleCloseDialog}>
-                                <IconButton edge="start" color="inherit" aria-label="close">
-                                    <CloseIcon />
-                                </IconButton>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Box mr={4}>
-                                    <Typography variant="h6">
-                                        הוספת הוצאה:
+                <Dialog fullScreen open={openDialog} >
+                    <Box mt={0}>
+                        <AppBar dir="rtl" position="static">
+                            <Toolbar>
+                                <Grid item xs onClick={handleCloseDialog}>
+                                    <IconButton edge="start" color="inherit" aria-label="close">
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Box mr={4}>
+                                        <Typography variant="h6">
+                                            הוספת הוצאה:
                                     </Typography>
-                                </Box>
-                            </Grid>
-                            <Grid onClick={saveButtonPressed} item xs>
-                                <Button size="large" color="inherit">
-                                    <Grid spacing={10} item xs={8}>
-                                        <SaveIcon style={{ fontSize: 20 }} />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <Typography>שמור</Typography>
-                                    </Grid>
-                                </Button>
-                            </Grid>
-                        </Toolbar>
-                    </AppBar>
-                </Box>
-                <List>
-                    <ListItem button>
-                        <Container>
-                            <RadioGroup row aria-label="position" name="position">
-                                <Grid item xs={6.5}>
-                                    <FormControlLabel
-                                        control={<Radio checked={selectedCostsType === 'a'}
-                                            value="a" onChange={handleChangeCostsType} color="primary" />}
-                                        labelPlacement="end"
-                                        label="הוצאות קבועות" />
-                                </Grid>
-                                <Grid item xs={6.5}>
-                                    <FormControlLabel
-                                        control={<Radio checked={selectedCostsType === 'b'}
-                                            value="b" onChange={handleChangeCostsType} color="primary" />}
-                                        label="הוצאות משתנות"
-                                        labelPlacement="end"
-                                    />
-                                </Grid>
-                            </RadioGroup>
-                        </Container>
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <Container>
-                            <RadioGroup row aria-label="position" name="position">
-                                <Grid item xs={3}>
-                                    <Box mt={1}>
-                                        <Typography> הבזבזן: </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3}>
-                                    <FormControlLabel
-                                        control={<Radio checked={selectedValueRadio === 'aviv'}
-                                            value="aviv" onChange={handleChangeRadio} color="primary" />}
-                                        labelPlacement="end"
-                                        label="אביב" />
+                                <Grid onClick={saveButtonPressed} item xs>
+                                    <Button size="large" color="inherit">
+                                        <Grid spacing={10} item xs={8}>
+                                            <SaveIcon style={{ fontSize: 20 }} />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography>שמור</Typography>
+                                        </Grid>
+                                    </Button>
                                 </Grid>
-                                <Grid item xs={3}>
-                                    <FormControlLabel
-                                        control={<Radio checked={selectedValueRadio === 'chen'}
-                                            value="chen" onChange={handleChangeRadio} color="primary" />}
-                                        label="חן"
-                                        labelPlacement="end"
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <FormControlLabel
-                                        control={<Radio checked={selectedValueRadio === 'avivChen'}
-                                            value="avivChen" onChange={handleChangeRadio} color="primary" />}
-                                        label="חן ואביב"
-                                        labelPlacement="end"
-                                    />
-                                </Grid>
-                            </RadioGroup>
-                        </Container>
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <TextField fullWidth
-                            label="פירוט"
-                            value={selectedDescription}
-                            onChange={handleChangeDescription}
-                        />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <FormControl
-                            fullWidth className={classes.margin}>
-                            <InputLabel htmlFor="standard-adornment-amount">סכום:</InputLabel>
-                            <Input
-                                value={selectedPrice}
-                                onChange={handleChangePrice}
-                                type="number"
-                                startAdornment={<InputAdornment position="start">₪</InputAdornment>}
+                            </Toolbar>
+                        </AppBar>
+                    </Box>
+                    <List>
+                        <ListItem button>
+                            <Container>
+                                <RadioGroup row aria-label="position" name="position">
+                                    <Grid item xs={6.5}>
+                                        <FormControlLabel
+                                            control={<Radio checked={selectedCostsType === 'a'}
+                                                value="a" onChange={handleChangeCostsType} color="primary" />}
+                                            labelPlacement="end"
+                                            label="הוצאות קבועות" />
+                                    </Grid>
+                                    <Grid item xs={6.5}>
+                                        <FormControlLabel
+                                            control={<Radio checked={selectedCostsType === 'b'}
+                                                value="b" onChange={handleChangeCostsType} color="primary" />}
+                                            label="הוצאות משתנות"
+                                            labelPlacement="end"
+                                        />
+                                    </Grid>
+                                </RadioGroup>
+                            </Container>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <Container>
+                                <RadioGroup row aria-label="position" name="position">
+                                    <Grid item xs={3}>
+                                        <Box mt={1}>
+                                            <Typography> הבזבזן: </Typography>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <FormControlLabel
+                                            control={<Radio checked={selectedValueRadio === 'aviv'}
+                                                value="aviv" onChange={handleChangeRadio} color="primary" />}
+                                            labelPlacement="end"
+                                            label="אביב" />
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <FormControlLabel
+                                            control={<Radio checked={selectedValueRadio === 'chen'}
+                                                value="chen" onChange={handleChangeRadio} color="primary" />}
+                                            label="חן"
+                                            labelPlacement="end"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <FormControlLabel
+                                            control={<Radio checked={selectedValueRadio === 'avivChen'}
+                                                value="avivChen" onChange={handleChangeRadio} color="primary" />}
+                                            label="חן ואביב"
+                                            labelPlacement="end"
+                                        />
+                                    </Grid>
+                                </RadioGroup>
+                            </Container>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <TextField fullWidth
+                                label="פירוט"
+                                value={selectedDescription}
+                                onChange={handleChangeDescription}
                             />
-                        </FormControl>
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <FormControl fullWidth>
-                            <InputLabel>קטגוריה</InputLabel>
-                            <Select
-                                id="demo-simple-select"
-                                value={selectedCategory}
-                                onChange={handleChangeCategory}
-                                MenuProps={{
-                                    anchorOrigin: {
-                                        vertical: "bottom",
-                                        horizontal: "left"
-                                    },
-                                    transformOrigin: {
-                                        vertical: "top",
-                                        horizontal: "left"
-                                    },
-                                    getContentAnchorEl: null
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <FormControl
+                                fullWidth className={classes.margin}>
+                                <InputLabel htmlFor="standard-adornment-amount">סכום:</InputLabel>
+                                <Input
+                                    value={selectedPrice}
+                                    onChange={handleChangePrice}
+                                    type="number"
+                                    startAdornment={<InputAdornment position="start">₪</InputAdornment>}
+                                />
+                            </FormControl>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <FormControl fullWidth>
+                                <InputLabel>קטגוריה</InputLabel>
+                                <Select
+                                    id="demo-simple-select"
+                                    value={selectedCategory}
+                                    onChange={handleChangeCategory}
+                                    MenuProps={{
+                                        anchorOrigin: {
+                                            vertical: "bottom",
+                                            horizontal: "left"
+                                        },
+                                        transformOrigin: {
+                                            vertical: "top",
+                                            horizontal: "left"
+                                        },
+                                        getContentAnchorEl: null
+                                    }}
+                                >
+                                    <MenuItem value={10}>מצרכים</MenuItem>
+                                    <MenuItem value={20}>מסעדות ואלכוהול</MenuItem>
+                                    <MenuItem value={30}>בגדים</MenuItem>
+                                    <MenuItem value={40}>הזמנות מהאינטרנט</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <TextField fullWidth
+                                id="datetime-local"
+                                label="תאריך ושעה"
+                                type="datetime-local"
+                                value={selectedDate}
+                                onChange={handleChangeDate}
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
                                 }}
-                            >
-                                <MenuItem value={10}>מצרכים</MenuItem>
-                                <MenuItem value={20}>מסעדות ואלכוהול</MenuItem>
-                                <MenuItem value={30}>בגדים</MenuItem>
-                                <MenuItem value={40}>הזמנות מהאינטרנט</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <TextField fullWidth
-                            id="datetime-local"
-                            label="תאריך ושעה"
-                            type="datetime-local"
-                            value={selectedDate}
-                            onChange={handleChangeDate}
-                            className={classes.textField}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
+                            />
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <Typography variant="h5" gutterBottom>סכום שנשאר להחודש: {props.generalStore.amountLeft}</Typography>
+                        </ListItem>
+                        <Divider />
+                    </List>
+                </Dialog >
+                <Dialog open={selectOpenResetMonth} onClose={handleClickCloseMonthReset} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">איפוס חודש</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="סכום לחודש הבא"
+                            type="email"
+                            fullWidth
                         />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button>
-                        <Typography variant="h5" gutterBottom>סכום שנשאר להחודש: {props.generalStore.amountLeft}</Typography>
-                    </ListItem>
-                    <Divider />
-                </List>
-            </Dialog >
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClickCloseMonthReset} color="primary">
+                            ביטול
+          </Button>
+                        <Button onClick={handleClickCloseMonthReset} color="primary">
+                            איפוס
+          </Button>
+                    </DialogActions>
+                </Dialog>
+
             </Container>
         )
     })

@@ -27,15 +27,30 @@ router.post("/postData", async function (req, res) {
         price: data.price,
         category: data.category,
         date: data.date,
+        id: data.id
     });
-    console.log(data)
+    console.log("server post data")
+    res.end();
 })
+
 
 router.get("/getData", async function (req, res) {
     const snapshot = await firebase.firestore().collection('data').get()
+    console.log("server get data")
     res.send(snapshot.docs.map(doc => doc.data()))
 })
 
+router.post("/deleteRow", async function (req, res) {
+    let id = req.body.id
+    let query = firebase.firestore().collection('data').where("id", "==", id)
+    query.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            doc.ref.delete();
+          });  
+    })
+    console.log("Server delete row with id of " + id)
+    res.end()
+})
 
 
 module.exports = router

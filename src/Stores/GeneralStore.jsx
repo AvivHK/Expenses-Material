@@ -1,13 +1,16 @@
 import { observable, action } from "mobx";
 import axios from "axios";
-// const userRoute = "http://localhost:4200";
-const userRoute = "";
+import uniqid from "uniqid"
+const userRoute = "http://localhost:4200";
+// const userRoute = "";
 
 export default class GeneralStore {
     @observable lightMode = localStorage.theme === "light" ? false : true;
     @observable amountLeft = 5000;
     @observable transactions = [];
+    @observable transactionsThisMonth = [];
     @observable dataToChart = [];
+    @observable rowToDelete = null
 
     @action calcDataToChart = () => {
         let data = [
@@ -56,6 +59,9 @@ export default class GeneralStore {
         localStorage.setItem("theme", bool ? "dark" : "light");
         console.log(bool)
         this.lightMode = bool;
+        for (let i = 0; i < 20; i++) {
+            console.log(`${uniqid()}`)
+        }
     };
 
     @action saveButtonPressed = async (costType, name, description, price, category, date) => {
@@ -67,6 +73,7 @@ export default class GeneralStore {
             price,
             category,
             date,
+            id: uniqid()
         })
         this.arrangeForCharts();
         this.calcDataToChart();
@@ -86,5 +93,15 @@ export default class GeneralStore {
         let newData = await axios.get(`${userRoute}/getData/`)
         this.transactions = newData.data
         this.calcDataToChart()
+    }
+
+    @action deleteTransaction = async () => {
+        axios.post(`${userRoute}/deleteRow`, { id: this.rowToDelete.id})
+        this.transactions.splice(this.transactions.findIndex(t => t.id === this.rowToDelete.id), 1)
+        this.rowToDelete = null;
+    }
+
+    @action setRowToDelete = row => {
+        this.rowToDelete = row;
     }
 }

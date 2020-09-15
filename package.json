@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "audit": "0.0.6",
     "axios": "^0.20.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.9.0",
@@ -75,18 +76,18 @@
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "2.3.4",
     "ts-pnp": "1.1.5",
+    "uniqid": "^5.2.0",
     "url-loader": "2.3.0",
     "webpack": "4.41.5",
     "webpack-dev-server": "^3.11.0",
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "4.3.1"
   },
-    "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+  "scripts": {
+    "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "start": "node Server"
+    "test": "node scripts/test.js"
   },
-
   "eslintConfig": {
     "extends": "react-app"
   },
