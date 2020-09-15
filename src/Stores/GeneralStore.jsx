@@ -11,6 +11,7 @@ export default class GeneralStore {
     @observable transactionsThisMonth = [];
     @observable dataToChart = [];
     @observable rowToDelete = null
+    @observable months = [{ month: "אוגוסט", year: "20201", total: 5000, var: 3500, fixed: 1500 },{ month: "אוגוסט", year: "20202", total: 5000, var: 3500, fixed: 1500 },{ month: "אוגוסט", year: "20203", total: 5000, var: 3500, fixed: 1500 },{ month: "אוגוסט", year: "20204", total: 5000, var: 3500, fixed: 1500 },{ month: "אוגוסט", year: "20205", total: 5000, var: 3500, fixed: 1500 },{ month: "אוגוסט", year: "20206", total: 5000, var: 3500, fixed: 1500 },{ month: "אוגוסט", year: "20207", total: 5000, var: 3500, fixed: 1500 }]
 
     @action calcDataToChart = () => {
         let data = [
@@ -59,9 +60,6 @@ export default class GeneralStore {
         localStorage.setItem("theme", bool ? "dark" : "light");
         console.log(bool)
         this.lightMode = bool;
-        for (let i = 0; i < 20; i++) {
-            console.log(`${uniqid()}`)
-        }
     };
 
     @action saveButtonPressed = async (costType, name, description, price, category, date) => {
@@ -96,7 +94,7 @@ export default class GeneralStore {
     }
 
     @action deleteTransaction = async () => {
-        axios.post(`${userRoute}/deleteRow`, { id: this.rowToDelete.id})
+        axios.post(`${userRoute}/deleteRow`, { id: this.rowToDelete.id })
         this.transactions.splice(this.transactions.findIndex(t => t.id === this.rowToDelete.id), 1)
         this.rowToDelete = null;
     }

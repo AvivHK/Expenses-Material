@@ -10,6 +10,7 @@ import Table from "./Table"
 import { Box } from '@material-ui/core';
 import { observer, inject } from 'mobx-react';
 import moment from 'moment';
+import Months from "./Components/Months"
 
 
 function TabContainer({ children, dir }) {
@@ -32,7 +33,7 @@ const styles = theme => ({
 @observer
 class FullWidthTabs extends React.Component {
     state = {
-        value: 0,
+        value: 2,
     };
 
     handleChange = (event, value) => {
@@ -77,6 +78,7 @@ class FullWidthTabs extends React.Component {
                     </TabContainer>
                     <TabContainer dir={theme.direction}>
                         <Box mt={3}>
+                            <Months/>
                         </Box>
                     </TabContainer>
                 </SwipeableViews>
